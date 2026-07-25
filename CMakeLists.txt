@@ -25,6 +25,7 @@ add_library(quotemesh STATIC
   src/symbol_table.cpp
   src/wire_format.cpp
   src/scalar_parser.cpp
+  src/simd_parser.cpp
 )
 target_include_directories(quotemesh PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(quotemesh PUBLIC Threads::Threads PRIVATE qm_warnings)
