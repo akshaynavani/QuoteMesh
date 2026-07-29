@@ -10,6 +10,7 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(qm_tests
   test_parser.cpp
+  test_simd.cpp
 )
 target_link_libraries(qm_tests PRIVATE quotemesh GTest::gtest_main)
 
