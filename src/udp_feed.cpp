@@ -89,6 +89,7 @@ struct UdpSender::Addr {
 };
 
 UdpSender::UdpSender(const std::string& host, std::uint16_t port, int ttl) {
+  const in_addr dest = parse_ipv4(host);  // validate before acquiring resources
   fd_ = ::socket(AF_INET, SOCK_DGRAM, 0);
   if (fd_ < 0) fail("socket");
   const auto t = static_cast<unsigned char>(ttl);
@@ -96,7 +97,7 @@ UdpSender::UdpSender(const std::string& host, std::uint16_t port, int ttl) {
   addr_ = new Addr{};
   addr_->sa.sin_family = AF_INET;
   addr_->sa.sin_port = htons(port);
-  addr_->sa.sin_addr = parse_ipv4(host);
+  addr_->sa.sin_addr = dest;
 }
 
 UdpSender::~UdpSender() {
