@@ -68,13 +68,15 @@ void FeedHandler::publish(const MarketEvent& ev) {
 
 std::size_t FeedHandler::poll_once() {
   const ssize_t n = source_->read(buf_.data() + buf_len_, buf_.size() - buf_len_);
-  if (n < 0) {
-    finished_.store(true, std::memory_order_release);
-  } else {
+  const bool closed = n < 0;
+  if (!closed) {
     buf_len_ += static_cast<std::size_t>(n);
     stats_.bytes.fetch_add(static_cast<std::uint64_t>(n), std::memory_order_relaxed);
   }
-  if (buf_len_ == 0) return 0;
+  if (buf_len_ == 0) {
+    if (closed) finished_.store(true, std::memory_order_release);
+    return 0;
+  }
 
   std::size_t published = 0;
   std::size_t off = 0;
@@ -123,7 +125,12 @@ std::size_t FeedHandler::poll_once() {
     std::memmove(buf_.data(), buf_.data() + off, buf_len_ - off);
     buf_len_ -= off;
   }
-  if (finished()) buf_len_ = 0;  // source closed: discard any incomplete tail
+  if (closed) {
+    // Source closed: discard any incomplete tail and only now signal completion, so that
+    // observers of finished() know every parsed event has already been queued.
+    buf_len_ = 0;
+    finished_.store(true, std::memory_order_release);
+  }
   return published;
 }
 

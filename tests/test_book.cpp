@@ -1,6 +1,9 @@
 #include <gtest/gtest.h>
 
+#include <algorithm>
+#include <cstring>
 #include <memory>
+#include <thread>
 #include <string>
 #include <vector>
 
