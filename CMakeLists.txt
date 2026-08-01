@@ -26,6 +26,9 @@ add_library(quotemesh STATIC
   src/wire_format.cpp
   src/scalar_parser.cpp
   src/simd_parser.cpp
+  src/synthetic_feed.cpp
+  src/udp_feed.cpp
+  src/feed_handler.cpp
 )
 target_include_directories(quotemesh PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(quotemesh PUBLIC Threads::Threads PRIVATE qm_warnings)
