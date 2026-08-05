@@ -35,6 +35,9 @@ add_library(quotemesh STATIC
 )
 target_include_directories(quotemesh PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(quotemesh PUBLIC Threads::Threads PRIVATE qm_warnings)
+if(UNIX AND NOT APPLE)
+  target_link_libraries(quotemesh PUBLIC rt)  # shm_open on older glibc
+endif()
 
 if(QM_NATIVE AND NOT QM_FORCE_SCALAR)
   include(CheckCXXCompilerFlag)
