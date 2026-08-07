@@ -68,7 +68,8 @@ TEST(ShmRing, SubscriberReceivesNbboAndTrades) {
   EXPECT_EQ(d.last_px, 1'000'050);
   EXPECT_EQ(d.volume, 75u);
   EXPECT_EQ(sub.exchange_name(1), "NASDAQ");
-  EXPECT_EQ(sub.find_symbol("AAPL"), aapl);
+  ASSERT_TRUE(sub.find_symbol("AAPL").has_value());
+  EXPECT_EQ(*sub.find_symbol("AAPL"), aapl);
   EXPECT_TRUE(sub.writer_alive(wall_ns()));
 }
 
