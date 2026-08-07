@@ -32,6 +32,7 @@ add_library(quotemesh STATIC
   src/consolidated_book.cpp
   src/aggregator.cpp
   src/shm_region.cpp
+  src/shm_publisher.cpp
 )
 target_include_directories(quotemesh PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_link_libraries(quotemesh PUBLIC Threads::Threads PRIVATE qm_warnings)
