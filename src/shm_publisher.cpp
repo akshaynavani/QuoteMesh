@@ -100,6 +100,7 @@ void ShmPublisher::on_nbbo(SymbolId sym, const Nbbo& n, const MarketEvent& cause
   d.flags = p.flags;
   d.updated_ts = now;
   snaps_.write(sym, d);
+  if (now - last_heartbeat_ > 100'000'000) heartbeat(now);
 }
 
 void ShmPublisher::on_trade(SymbolId sym, const LastTrade& t, const MarketEvent& cause) {
