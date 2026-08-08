@@ -61,6 +61,9 @@ endif()
 if(QM_BUILD_BENCH)
   add_executable(bench_parser bench/bench_parser.cpp)
   target_link_libraries(bench_parser PRIVATE quotemesh)
+
+  add_executable(bench_pipeline bench/bench_pipeline.cpp)
+  target_link_libraries(bench_pipeline PRIVATE quotemesh)
 endif()
 
 if(QM_BUILD_APPS)

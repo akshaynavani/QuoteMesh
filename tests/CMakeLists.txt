@@ -14,6 +14,7 @@ add_executable(qm_tests
   test_spsc.cpp
   test_book.cpp
   test_shm.cpp
+  test_config.cpp
 )
 target_link_libraries(qm_tests PRIVATE quotemesh GTest::gtest_main)
 
