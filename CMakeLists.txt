@@ -70,4 +70,7 @@ if(QM_BUILD_APPS)
 
   add_executable(qm_subscriber apps/qm_subscriber.cpp)
   target_link_libraries(qm_subscriber PRIVATE quotemesh)
+
+  add_executable(qm_feedsim apps/qm_feedsim.cpp)
+  target_link_libraries(qm_feedsim PRIVATE quotemesh)
 endif()
