@@ -67,4 +67,7 @@ if(QM_BUILD_APPS)
   add_executable(quotemesh_bin apps/quotemesh_main.cpp)
   set_target_properties(quotemesh_bin PROPERTIES OUTPUT_NAME quotemesh)
   target_link_libraries(quotemesh_bin PRIVATE quotemesh)
+
+  add_executable(qm_subscriber apps/qm_subscriber.cpp)
+  target_link_libraries(qm_subscriber PRIVATE quotemesh)
 endif()
