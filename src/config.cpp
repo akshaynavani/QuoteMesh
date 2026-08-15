@@ -142,7 +142,11 @@ std::string AppConfig::summary() const {
 AppConfig default_config() {
   AppConfig c;
   for (const char* s : kDefaultSymbols) c.symbols.emplace_back(s);
-  for (const char* n : kDefaultExchanges) c.exchanges.push_back(ExchangeConfig{n});
+  for (const char* n : kDefaultExchanges) {
+    ExchangeConfig e;
+    e.name = n;
+    c.exchanges.push_back(e);
+  }
   return c;
 }
 
